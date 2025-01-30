@@ -1,10 +1,9 @@
 package kg.geeks.game.players;
 
-import java.util.Random;
+import kg.geeks.game.general.RPG_Game;
+
 
 public class Gambling extends Hero implements Fighter {
-    private Random random = new Random();
-
     public Gambling(int health, int damage, String name) {
         super(health, damage, name, SuperAbility.THROWS_DICE);
     }
@@ -16,15 +15,15 @@ public class Gambling extends Hero implements Fighter {
 
     @Override
     public void applySuperPower(Boss boss, Hero[] heroes) {
-        int dice = random.nextInt(6) + 1;  // Генерируем число от 1 до 6
-        int dice1 = random.nextInt(6) + 1; // Генерируем второе число от 1 до 6
+        int dice = RPG_Game.random.nextInt(6) + 1;
+        int dice1 = RPG_Game.random.nextInt(6) + 1;
 
         if (dice == dice1) {
-            int damage = dice * dice1;  // Урон = произведение чисел
+            int damage = dice * dice1;
             boss.setHealth(boss.getHealth() - damage);
             System.out.println(this.getName() + " выбросил " + dice + " и " + dice1 + "! Совпадение! Босс получает " + damage + " урона.");
         } else {
-            int damage = dice + dice1;  // Урон = сумма чисел
+            int damage = dice + dice1;
             Hero randomHero = getRandomHero(heroes);
             if (randomHero != null) {
                 randomHero.setHealth(randomHero.getHealth() - damage);
@@ -33,12 +32,11 @@ public class Gambling extends Hero implements Fighter {
         }
     }
 
-    // Вынесенный метод поиска случайного живого союзника
     private Hero getRandomHero(Hero[] heroes) {
         Hero randomHero;
         do {
-            randomHero = heroes[random.nextInt(heroes.length)];
-        } while (randomHero == this || randomHero.getHealth() <= 0); // Исключаем себя и мертвых героев
+            randomHero = heroes[RPG_Game.random.nextInt(heroes.length)];
+        } while (randomHero == this || randomHero.getHealth() <= 0);
         return randomHero;
     }
 }

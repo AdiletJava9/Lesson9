@@ -4,6 +4,11 @@ import kg.geeks.game.players.*;
 
 import java.util.Random;
 
+//Лудоман. Его способность: Он бросает две игральные кости,
+//если они совпадают, то он отнимает произведение чисел которые выпали из здоровья босса,
+//если же они не совпадают,
+//то он отнимает сумму чисел из здоровья случайного сокомандника.
+
 public class RPG_Game {
     public static Random random = new Random();
     private static int roundNumber;
@@ -16,7 +21,8 @@ public class RPG_Game {
         Berserk berserk = new Berserk(260, 15, "Ragnar");
         Medic doc = new Medic(250, "Alex", 15);
         Medic assistant = new Medic(320, "Sultan", 5);
-        Hero[] heroes = {warrior1, doc, magic, warrior2, berserk, assistant};
+        Gambling gambling = new Gambling(200, 50, "Locky");
+        Hero[] heroes = {warrior1, doc, magic, warrior2, berserk, assistant,gambling};
 
         printStatistics(boss, heroes);
         while (!isGameOver(boss, heroes)) {
